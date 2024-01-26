@@ -192,7 +192,7 @@ public class BrowserActions extends Base {
     //-------------------------------------------------------------------------------------
     public static Double ReceiptNumbertext;
 
-    public static List<Object> AfterPaymentGetDetailsByRow(String number) {
+    public static List<String> AfterPaymentGetDetailsByRow(String number) {
 
         WebElement row = driver.findElement(By.xpath("//tbody/tr[td/span[@title='" + number + "' ]][1]"));
         String ReceiptNumberFinalValue = row.findElement(By.xpath("//tr/td[1]/span[@title]")).getAttribute("title");

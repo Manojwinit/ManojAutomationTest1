@@ -25,17 +25,9 @@
 <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-java</artifactId>
-    <version>4.15.0</version>
+    <version>4.17.0</version>
 </dependency>
 
-<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
-<!-- 
-<dependency>
-    <groupId>org.seleniumhq.selenium</groupId>
-    <artifactId>selenium-chrome-driver</artifactId>
-    <version>4.15.0</version>
-</dependency>
--->
 <dependency>
     <groupId>io.github.bonigarcia</groupId>
     <artifactId>webdrivermanager</artifactId>
@@ -45,8 +37,8 @@
 <dependency>
     <groupId>org.testng</groupId>
     <artifactId>testng</artifactId>
-    <version>7.8.0</version>
-    <scope>test</scope>
+    <version>7.9.0</version>
+    <scope>compile</scope>
 </dependency>
  <!-- ExtentReports -->
     <dependency>

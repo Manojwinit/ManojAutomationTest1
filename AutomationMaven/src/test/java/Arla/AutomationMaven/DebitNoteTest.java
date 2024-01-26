@@ -1,6 +1,7 @@
 package Arla.AutomationMaven;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -151,7 +152,7 @@ public class DebitNoteTest extends Base {
 
 
         WaitUtil.shortSleep();
-        List<Object> PaymentPage = BrowserActions.AfterPaymentGetDetailsByRow(InvoiceNumber);
+        List<String> PaymentPage = BrowserActions.AfterPaymentGetDetailsByRow(InvoiceNumber);
         String ReceiptNumber = String.valueOf(PaymentPage.get(0));
         Assert.assertTrue(DebitNoteinCreatePaymentPage, "Collected DebitNote showing in Payment Page");
         Assert.assertNotNull(PaymentPage, "DebitNote showing in Create Payment Page");
@@ -195,7 +196,7 @@ public class DebitNoteTest extends Base {
         createDebitNote.NavigateToCreateDebitNote();
 
         List<String> items = new ArrayList<>();
-        List<String> additionalItems = List.of("19596", "38876");
+        List<String> additionalItems = Arrays.asList("19596", "38876") ;
         items.addAll(additionalItems);
 
         createDebitNote.AddNewDebitNote(CustomerCode, sellOut, RefNum, customerDocDate, postingDate, items);

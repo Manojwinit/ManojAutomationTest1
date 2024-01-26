@@ -5,6 +5,9 @@ import TestUtils.WaitUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import Models.InvoiceAndSelect;
+import Models.PaymentResult;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -345,16 +348,16 @@ public class PaymentPage {
         BrowserActions.Type(ChooseFile, "C:\\Users\\winit\\Pictures\\Screenshots\\Screenshot (1).png");
     }
 
-    public List<Object> PaymentModeandAmountInitial() {
+    public PaymentResult PaymentModeandAmountInitial() {
         BrowserActions.ScrollToElement(TotalPaidamount);
         BrowserActions.Click(TotalPaidamount);
         String val = BrowserActions.GetText(TotalPaidamount);
-        double TotalPaidamountInitial = Double.parseDouble(val);
+        Double TotalPaidamountInitial = Double.parseDouble(val);
         String PaymentModeInital = BrowserActions.GetText(PaymentMode);
         BrowserActions.Click(Save);
         //return new Dictionary<String, object> { { "TotalpaidAmount", TotalPaidamountInitial }, { "PaymentModeInitial", PaymentModeInital } };
-
-        return Arrays.asList(PaymentModeInital, TotalPaidamountInitial);
+        PaymentResult paymentResult = new PaymentResult(PaymentModeInital,TotalPaidamountInitial);
+        return paymentResult;
     }
 
     public String GetTheInvoice(String invoicenumber, double amount, String bankName) {
@@ -412,14 +415,14 @@ public class PaymentPage {
 
     }
 
-    public List<Object> GetInvoiceandSelect(String invoicenumber, double amount) {
+    public InvoiceAndSelect GetInvoiceandSelect(String invoicenumber, double amount) {
         BrowserActions.Type(ISInvoice, invoicenumber);
         BrowserActions.Click(InvoiceSearchbutton);
         BrowserActions.ScrollToElement(SelectCheckBox);
         String InvoiceNumber = BrowserActions.GetText(InvoiceNum);
         String DueAmt = BrowserActions.GetText(DueAmount);
         DueAmt = DueAmt.replace(",", "").replace("SAR", "");
-        double TotalDueAmount = Double.parseDouble(DueAmt);
+        Double TotalDueAmount = Double.parseDouble(DueAmt);
 
         BrowserActions.Click(SelectCheckBox);
         BrowserActions.Click(EditAmount);
@@ -428,13 +431,12 @@ public class PaymentPage {
         BrowserActions.Click(BAlAmt);
         String BalAmt = BrowserActions.GetText(BAlAmt);
         BalAmt = BalAmt.replace(",", "").replace("SAR", "");
-        double balanceamount = Double.parseDouble(BalAmt);
+        Double balanceamount = Double.parseDouble(BalAmt);
         BrowserActions.Click(SaveButton);
-
-        return Arrays.asList(InvoiceNumber, TotalDueAmount, balanceamount);
+        return new InvoiceAndSelect(InvoiceNumber,TotalDueAmount,balanceamount);
     }
 
-    public List<Object> OnlinePaymentAndGetInvoiceAmtDetails(String bankName, String branchName, String refNum,
+    public InvoiceAndSelect OnlinePaymentAndGetInvoiceAmtDetails(String bankName, String branchName, String refNum,
                                                              double amount, String transferDate, String comment, String invoicenumber)//invoice number code commented
     {
 
@@ -469,7 +471,7 @@ public class PaymentPage {
         BrowserActions.Click(SaveButton);
         WaitUtil.WaitForLoaderToComplete();
 
-        return Arrays.asList(TotalDueAmount, balanceamount);
+        return new InvoiceAndSelect(TotalDueAmount, balanceamount);
     }
 
     public void ChequeOnAccount(String bankname, String branchname, String refnumber, double amount,
